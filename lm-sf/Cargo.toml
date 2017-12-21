@@ -1,0 +1,14 @@
+[package]
+name = "lm-sf"
+version = "0.0.1"
+authors = ["Finn <finn.bcd@gmail.com>"]
+
+description = "A library of special functions"
+license = "CC0-1.0"
+
+[dependencies]
+num-complex = "0.1"
+
+
+
+
