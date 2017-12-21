@@ -1,0 +1,12 @@
+[package]
+name = "lm-quad"
+version = "0.0.0"
+authors = ["Finn <finn.bcd@gmail.com>"]
+
+description = "Numerical integration algorithms"
+license = "CC0-1.0"
+
+[dependencies]
+num-complex = "0.1"
+
+
