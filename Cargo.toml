@@ -12,3 +12,6 @@ path = "./lm-quad"
 [dependencies.lm-sf]
 path = "./lm-sf"
 
+[dependencies.lm-plot]
+path = "./lm-plot"
+
