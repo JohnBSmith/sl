@@ -1,5 +1,5 @@
 
-# LM: A Mathematics Library
+# LM: A mathematics library
 
 ## Analysis package
 
@@ -26,13 +26,13 @@ use lm::quad::gauss;
 use lm::ode::euler;
 
 // Calculate ln(x) = integral(1 to x) 1/t dt
-// by gauss quadrature.
+// by Gaussian quadrature.
 fn ln(x: f64) -> f64 {
     return gauss(&|t| 1.0/t, 1.0, x, 10);
 }
 
 fn main() {
-    // Calculate exp(x) from the ODE y'=y by the euler method.
+    // Calculate exp(x) from the ODE y'=y by the Euler method.
     // We have y'=g(x,y), g(x,y)=y.
     let g = |_,y| y;
     let x0 = 0.0;
