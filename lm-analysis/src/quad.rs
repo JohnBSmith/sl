@@ -1,6 +1,4 @@
 
-extern crate num_complex;
-
 use num_complex::Complex;
 
 #[allow(non_camel_case_types)]
@@ -70,4 +68,6 @@ pub fn gauss_complex(f: &Fn(f64)->c64, a: f64, b: f64, n: u32) -> c64 {
     }
     return s;  
 }
+
+
 

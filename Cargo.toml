@@ -3,11 +3,11 @@ name = "lm"
 version = "0.0.0"
 authors = ["Finn <finn.bcd@gmail.com>"]
 
-description = "A library of mathematics"
+description = "A library of mathematical algorithms"
 license = "CC0-1.0"
 
-[dependencies.lm-quad]
-path = "./lm-quad"
+[dependencies.lm-analysis]
+path = "./lm-analysis"
 
 [dependencies.lm-sf]
 path = "./lm-sf"

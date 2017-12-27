@@ -1,5 +1,5 @@
 [package]
-name = "lm-quad"
+name = "lm-analysis"
 version = "0.0.0"
 authors = ["Finn <finn.bcd@gmail.com>"]
 
