@@ -1,5 +1,5 @@
 
-# LibMath, a library of mathematical algorithms
+# LM: A Mathematics Library
 
 ## Analysis package
 
@@ -32,7 +32,7 @@ fn ln(x: f64) -> f64 {
 }
 
 fn main() {
-	// Calculate exp(x) from the ODE y'=y by the euler method.
+    // Calculate exp(x) from the ODE y'=y by the euler method.
     // We have y'=g(x,y), g(x,y)=y.
     let g = |_,y| y;
     let x0 = 0.0;
@@ -43,8 +43,8 @@ fn main() {
     let exp = euler(Box::new(g),x0,y0,h,0,n);
 
     for i in 1..6 {
-       let x = i as f64;
-       println!("{:8.4} |{:8.4} |{:8.4} |{:8.4}",x,ln(x),exp(x),exp(ln(x)));
+        let x = i as f64;
+        println!("{:8.4} |{:8.4} |{:8.4} |{:8.4}",x,ln(x),exp(x),exp(ln(x)));
     }
 }
 
