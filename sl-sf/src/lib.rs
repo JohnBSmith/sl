@@ -2,7 +2,10 @@
 extern crate num_complex;
 
 mod gamma;
+mod polynomials;
+
 pub use gamma::*;
+pub use polynomials::*;
 
 pub mod pc;
 
