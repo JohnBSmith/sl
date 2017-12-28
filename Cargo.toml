@@ -1,17 +1,17 @@
 [package]
-name = "lm"
+name = "sl"
 version = "0.0.0"
 authors = ["Finn <finn.bcd@gmail.com>"]
 
-description = "A library of mathematical algorithms"
+description = "A scientific library"
 license = "CC0-1.0"
 
-[dependencies.lm-analysis]
-path = "./lm-analysis"
+[dependencies.sl-analysis]
+path = "./sl-analysis"
 
-[dependencies.lm-sf]
-path = "./lm-sf"
+[dependencies.sl-sf]
+path = "./sl-sf"
 
-[dependencies.lm-plot]
-path = "./lm-plot"
+[dependencies.sl-plot]
+path = "./sl-plot"
 

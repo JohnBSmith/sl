@@ -1,5 +1,5 @@
 [package]
-name = "lm-plot"
+name = "sl-plot"
 version = "0.1.0"
 authors = ["finn <finn@c1>"]
 

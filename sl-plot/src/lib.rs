@@ -18,7 +18,9 @@ pub struct Canvas{
     pub y: f64,
     pub wx: f64,
     pub wy: f64,
-    pub n: usize
+    pub n: usize,
+    pub color: Color,
+    color_index: usize
 }
 
 #[derive(Clone,Copy)]
@@ -37,13 +39,32 @@ const WHITE: Color = Color{value: 0x00ffffff};
 const BLUE:  Color = Color{value: 0x00000080};
 const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
 
+pub mod color{
+    use Color;
+    pub const BLACK:   Color = Color{value: 0x00000000};
+    pub const GRAY:    Color = Color{value: 0x00808080};
+    pub const WHITE:   Color = Color{value: 0x00ffffff};
+    pub const BLUE:    Color = Color{value: 0x00000080};
+    pub const MAGENTA: Color = Color{value: 0x00800060};
+    pub const GREEN:   Color = Color{value: 0x00006000};
+    pub const RED:     Color = Color{value: 0x00a00000};
+    pub const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
+}
+
+static color_tab: [Color;4] = [
+  color::BLUE,
+  color::GREEN,
+  color::MAGENTA,
+  color::BLACK
+];
 
 impl Canvas{
     pub fn new(width: usize, height: usize) -> Self {
         let data: Vec<u32> = vec![0; width*height];
         let buffer = Buffer{width,height,data: data.into_boxed_slice()};
         return Canvas{buffer, px: (width/2) as isize, py: (height/2) as isize,
-            mx: 40.0, my: 40.0, wx: 10.0, wy: 10.0, x: 0.0, y: 0.0, n: 1000
+            mx: 40.0, my: 40.0, wx: 10.0, wy: 10.0, x: 0.0, y: 0.0, n: 1000,
+            color: BLUE, color_index: 0
         };
     }
     fn hline(&mut self, y: f64, color: Color) {
@@ -109,16 +130,21 @@ impl Canvas{
     }
     pub fn plot(&mut self, f: &Fn(f64)->f64) {
         let mut x = self.x-self.wx;
-        let mut xe = self.x+self.wx;
+        let xe = self.x+self.wx;
         let d = 10.0/(self.n as f64);
         while x<xe {
             let y = f(x);
             let px = (self.px+(x*self.mx) as isize) as usize;
             let py = (self.py.wrapping_sub((y*self.mx) as isize)) as usize;
             // println!("({}|{})",px,py);
-            self.fill(px,py,2,2,BLUE);
+            let color = self.color;
+            self.fill(px,py,2,2,color);
             x+=d;
         }
+        self.color_index+=1;
+        let n = color_tab.len();
+        let i = self.color_index;
+        self.color = color_tab[i%n];
     }
 }
 

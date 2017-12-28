@@ -1,25 +1,25 @@
 
-extern crate lm_analysis;
-extern crate lm_sf;
-extern crate lm_plot;
+extern crate sl_analysis;
+extern crate sl_sf;
+extern crate sl_plot;
 
 pub mod quad {
-    pub use lm_analysis::quad::*;
+    pub use sl_analysis::quad::*;
 }
 pub mod diff {
-    pub use lm_analysis::diff::*;
+    pub use sl_analysis::diff::*;
 }
 pub mod interpolation {
-    pub use lm_analysis::interpolation::*;
+    pub use sl_analysis::interpolation::*;
 }
 pub mod ode {
-    pub use lm_analysis::ode::*;
+    pub use sl_analysis::ode::*;
 }
 
 pub mod sf {
-    pub use lm_sf::*;
+    pub use sl_sf::*;
 }
 
 pub mod plot {
-    pub use lm_plot::*;
+    pub use sl_plot::*;
 }

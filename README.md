@@ -1,5 +1,5 @@
 
-# LM: A mathematics library
+# sl: A scientific library
 
 ## Analysis package
 
@@ -13,17 +13,17 @@
 * `sf` (scientific functions)
     * `gamma` (gamma and related functions)
 
-## Plotting library
+## Plotting package
 
 * `Canvas` (a canvas to draw)
 
 ## Example
 
 ```rust
-extern crate lm;
+extern crate sl;
 
-use lm::quad::gauss;
-use lm::ode::euler;
+use sl::quad::gauss;
+use sl::ode::euler;
 
 // Calculate ln(x) = integral(1 to x) 1/t dt
 // by Gaussian quadrature.
