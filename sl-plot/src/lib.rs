@@ -48,6 +48,7 @@ pub mod color{
     pub const MAGENTA: Color = Color{value: 0x00800060};
     pub const GREEN:   Color = Color{value: 0x00006000};
     pub const RED:     Color = Color{value: 0x00a00000};
+    pub const BROWN:   Color = Color{value: 0x00808000};
     pub const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
 }
 
