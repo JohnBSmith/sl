@@ -11,7 +11,6 @@
 ## Special functions package
 
 * `sf` (special functions)
-    * `gamma` (gamma and related functions)
 
 ## Plotting package
 
