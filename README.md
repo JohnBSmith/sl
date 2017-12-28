@@ -8,9 +8,9 @@
 * `ode` (ordinary differential equations)
 * `interpolation` (obtain functions from data)
 
-## Scientific functions package
+## Special functions package
 
-* `sf` (scientific functions)
+* `sf` (special functions)
     * `gamma` (gamma and related functions)
 
 ## Plotting package
