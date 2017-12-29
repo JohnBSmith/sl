@@ -9,23 +9,67 @@
 
 <br>
 <h1>sl: A scientific library</h1>
-<h2>Table of modules</h2>
+<h2>Table of contents</h2>
 <ol>
-<li><a href="#sf">sf: special functions</a>
+<li><a href="#sf">Special functions</a>
+  <ol>
+  <li><a href="#gamma">Gamma function and related</a>
+  <li><a href="#polynomials">Polynomials and related</a>
+  <li><a href="#ei">Elliptic integrals and related</a>
+  </ol>
 </ol>
 
-<h2 id="sf">sf: special functions</h2>
+<h2 id="sf">Special functions</h2>
+<p>Namespace <code>sl::sf</code>, or <code>sl_sf</code> as a
+standalone crate.
 
+<h3 id="gamma">Gamma function and related</h3>
 <dl class="code">
-<dt>gamma(x: f64) -&gt; f64
-<dd>The gamma function &Gamma;(x).
+<dt>fn gamma(x: f64) -&gt; f64
+<dd>The gamma function &Gamma;(<var>x</var>).
 
-<dt>cgamma(z: c64) -&gt; c64
-<dd>The complex gamma function &Gamma;(z).
+<dt>fn cgamma(z: c64) -&gt; c64
+<dd>The complex gamma function &Gamma;(<var>z</var>).
+</dl>
 
-<dt>legendre(n: i32, m: i32, x: f64) -&gt; f64
-<dd>Associated legendre function P<sub>n,m</sub>(x).
-Legendre polynomial P<sub>n</sub>(x)=P<sub>n,0</sub>(x).
+<h3 id="polynomials">Polynomial functions and related</h3>
+<dl class="code">
+<dt>fn legendre(n: i32, m: i32, x: f64) -&gt; f64
+<dd>Associated legendre function <var>P</var><sub>n,m</sub>(<var>x</var>).
+Legendre polynomial <var>P</var><sub>n</sub>(<var>x</var>)=<var>P</var><sub>n,0</sub>(<var>x</var>).
+</dl>
+
+<h3 id="ei">Elliptic integrals and related</h3>
+<dl class="code">
+<dt>fn agm(x: f64, y: f64) -&gt; f64
+<dd>Arithmetic-geometric mean of <var>x</var> and <var>y</var>.
+
+<dt>fn cK(m: f64) -&gt; f64
+<dd>Complete elliptic integral of the first kind, <var>m</var>=<var>k</var><sup>2</sup>.
+
+<dt>fn cE(m: f64) -&gt; f64
+<dd>Complete elliptic integral of the second kind, <var>m</var>=<var>k</var><sup>2</sup>.
+
+<dt>fn eiF(phi: f64, m: f64) -&gt; f64
+<dd>Elliptic integral of the second kind, <var>m</var>=<var>k</var><sup>2</sup>.
+
+<dt>fn eiE(phi: f64, m: f64) -&gt; f64
+<dd>Elliptic integral of the second kind, <var>m</var>=<var>k</var><sup>2</sup>.
+
+<dt>fn eiPi(phi: f64, n: f64, m: f64) -&gt; f64
+<dd>Elliptic integral of the third kind, <var>m</var>=<var>k</var><sup>2</sup>.
+
+<dt>fn RF(x: f64, y: f64, z: f6) -&gt; f64
+<dd>Carlson symmetric form <var>R</var><sub>F</sub>(<var>x</var>,<var>y</var>,<var>z</var>).
+
+<dt>fn RC(x: f64, y: f64, z: f6) -&gt; f64
+<dd>Carlson symmetric form <var>R</var><sub>C</sub>(<var>x</var>,<var>y</var>).
+
+<dt>fn RJ(x: f64, y: f64, z: f6, p: f64) -&gt; f64
+<dd>Carlson symmetric form <var>R</var><sub>J</sub>(<var>x</var>,<var>y</var>,<var>z</var>,<var>p</var>).
+
+<dt>fn RD(x: f64, y: f64, z: f6) -&gt; f64
+<dd>Carlson symmetric form <var>R</var><sub>D</sub>(<var>x</var>,<var>y</var>,<var>z</var>).
 </dl>
 
 </body>
