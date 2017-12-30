@@ -33,7 +33,7 @@ impl Color{
     }
 }
 
-const BLACK: Color = Color{value: 0x00000000};
+// const BLACK: Color = Color{value: 0x00000000};
 const GRAY:  Color = Color{value: 0x00808080};
 const WHITE: Color = Color{value: 0x00ffffff};
 const BLUE:  Color = Color{value: 0x00000080};
@@ -52,7 +52,7 @@ pub mod color{
     pub const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
 }
 
-static color_tab: [Color;4] = [
+static COLOR_TAB: [Color;4] = [
   color::BLUE,
   color::GREEN,
   color::MAGENTA,
@@ -112,6 +112,12 @@ impl Canvas{
             }
         }
     }
+    pub fn empty_box(&mut self, px: usize, py: usize, w: usize, color: Color) {
+        self.fill(px,py,w,2,color);
+        self.fill(px,py,2,w,color);
+        self.fill(px,py.wrapping_add(w),w+2,2,color);
+        self.fill(px.wrapping_add(w),py,2,w,color);
+    }
     pub fn ppm(&self) -> Vec<u8> {
         let s = format!("P6 {} {} 255\n",self.buffer.width,self.buffer.height);
         let mut bv: Vec<u8> = s.into_bytes();
@@ -143,9 +149,17 @@ impl Canvas{
             x+=d;
         }
         self.color_index+=1;
-        let n = color_tab.len();
+        let n = COLOR_TAB.len();
         let i = self.color_index;
-        self.color = color_tab[i%n];
+        self.color = COLOR_TAB[i%n];
+    }
+    pub fn scatter(&mut self, a: &[[f64;2]]) {
+        for t in a {
+            let px = (self.px+(t[0]*self.mx) as isize) as usize;
+            let py = (self.py.wrapping_sub((t[1]*self.mx) as isize)) as usize;
+            let color = self.color;
+            self.empty_box(px.wrapping_sub(4),py.wrapping_sub(4),8,color);
+        }
     }
 }
 

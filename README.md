@@ -12,6 +12,8 @@
 
 * `sf` (special functions)
 
+See *"[Implementation of special functions](https://johnbsmith.github.io/Mathematics/sf-implementation/sf-implementation.pdf)"*.
+
 ## Plotting package
 
 * `Canvas` (a canvas to draw)
