@@ -1,6 +1,7 @@
 
 use std::io::prelude::*;
 use std::fs::File;
+mod font;
 
 struct Buffer{
     width: usize,
@@ -80,20 +81,26 @@ impl Canvas{
     }
     pub fn system(&mut self) {
         self.clear(WHITE);
+        self.color = GRAY;
         for x in 1..10 {
           self.vline(x as f64,LIGHTGRAY);
+          self.vprint(x as f64-0.1, -0.1, &format!("{}",x));
         }
         for x in -9..0 {
-          self.vline(x as f64,LIGHTGRAY);         
+          self.vline(x as f64,LIGHTGRAY);
+          self.vprint(x as f64-0.1, -0.1, &format!("{}",x));
         }
         for y in 1..10 {
           self.hline(y as f64,LIGHTGRAY);
+          self.vprint(0.2, y as f64+0.2, &format!("{}",y));
         }
         for y in -9..0 {
           self.hline(y as f64,LIGHTGRAY);
+          self.vprint(0.2, y as f64+0.2, &format!("{}",y));
         }
         self.hline(0.0,GRAY);
         self.vline(0.0,GRAY);
+        self.color = BLUE;
     }
     pub fn clear(&mut self, color: Color) {
         for x in self.buffer.data.iter_mut() {
@@ -160,6 +167,45 @@ impl Canvas{
             let color = self.color;
             self.empty_box(px.wrapping_sub(4),py.wrapping_sub(4),8,color);
         }
+    }
+    pub fn pixels(&mut self, px: usize, py: usize, s: &str) {
+        let color = self.color;
+        let mut x = px;
+        let mut y = py;
+        for c in s.chars() {
+            if c=='x' {
+                self.fill(x,y,2,2,color);
+                x = x.wrapping_add(2);
+            }else if c=='\n' {
+                x = px;
+                y = y.wrapping_add(2);
+            }else{
+                x = x.wrapping_add(2);
+            }
+        }
+    }
+    fn get_pxpy(&self, x: f64, y: f64) -> (usize,usize) {
+        let px = (self.px.wrapping_add((x*self.mx) as isize)) as usize;
+        let py = (self.py.wrapping_sub((y*self.mx) as isize)) as usize;
+        return (px,py);
+    }
+    pub fn print(&mut self, px: usize, py: usize, s: &str) {
+        let mut x = px;
+        let mut y = py;
+        for c in s.chars() {
+            let m = ::font::pixelmap(c);
+            if c=='\n' {
+                y = y.wrapping_add(14);
+                x=px;
+            }else{
+                self.pixels(x,y,m);
+                x = x.wrapping_add(12);
+            }
+        }
+    }
+    pub fn vprint(&mut self, x: f64, y: f64, s: &str) {
+        let (px,py) = self.get_pxpy(x,y);
+        self.print(px,py,s);
     }
 }
 

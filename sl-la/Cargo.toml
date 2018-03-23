@@ -1,0 +1,8 @@
+[package]
+name = "sl-la"
+version = "0.0.0"
+authors = ["finn <finn@c1>"]
+description = "Linear algebra"
+license = "CC0-1.0"
+
+[dependencies]

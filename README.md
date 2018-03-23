@@ -3,28 +3,31 @@
 
 ## Analysis package
 
-* `diff` (numerical differentiation)
-* `quad` (numerical integration)
-* `ode` (ordinary differential equations)
-* `interpolation` (obtain functions from data)
+* `na`
+  * `diff` (numerical differentiation)
+  * `quad` (numerical integration)
+  * `ode` (ordinary differential equations)
+  * `interpolation` (obtain functions from data)
 
-## Special functions package
+## Mathematical functions package
 
-* `sf` (special functions)
+* `mf` (mathematical functions)
+  * `sf` (special functions)
 
-See *"[Implementation of special functions](https://johnbsmith.github.io/Mathematics/sf-implementation/sf-implementation.pdf)"*.
+See *[Implementation of special functions](https://johnbsmith.github.io/Mathematics/sf-implementation/sf-implementation.pdf)*.
 
 ## Plotting package
 
-* `Canvas` (a canvas to draw)
+* `gx`
+  * `Canvas` (a canvas to draw)
 
 ## Example
 
 ```rust
 extern crate sl;
 
-use sl::quad::gauss;
-use sl::ode::euler;
+use sl::na::quad::gauss;
+use sl::na::ode::euler;
 
 // Calculate ln(x) = integral(1 to x) 1/t dt
 // by Gaussian quadrature.

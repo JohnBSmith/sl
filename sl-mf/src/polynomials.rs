@@ -1,12 +1,12 @@
 
-use std::f64::consts::PI;
 use gamma::gamma;
+const SQRT_PI: f64 = 1.7724538509055159;
 
 fn legendre_rec(n: i32, m: i32,x: f64) -> f64{
     if n==m {
-        return PI.sqrt()/gamma(0.5-n as f64)*(2.0*(1.0-x*x).sqrt()).powi(n);
+        return SQRT_PI/gamma(0.5-n as f64)*(2.0*(1.0-x*x).sqrt()).powi(n);
     }else if n-1==m {
-        return x*(2.0*n as f64-1.0)*legendre_rec(m,m,x);
+        return x*(2*n-1) as f64*legendre_rec(m,m,x);
     }else{
         let mut a = legendre_rec(m,m,x);
         let mut b = legendre_rec(m+1,m,x);

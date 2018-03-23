@@ -1,9 +1,9 @@
 [package]
-name = "sl-analysis"
+name = "sl-na"
 version = "0.0.0"
 authors = ["Finn <finn.bcd@gmail.com>"]
 
-description = "Numerical integration algorithms"
+description = "Numerical analysis"
 license = "CC0-1.0"
 
 [dependencies]

@@ -1,0 +1,8 @@
+[package]
+name = "sl-gx"
+version = "0.0.0"
+authors = ["finn <finn@c1>"]
+description = "Computer graphics and plotting"
+license = "CC0-1.0"
+
+[dependencies]

@@ -1,9 +1,9 @@
 [package]
-name = "sl-sf"
-version = "0.0.1"
+name = "sl-mf"
+version = "0.0.0"
 authors = ["Finn <finn.bcd@gmail.com>"]
 
-description = "A library of special functions"
+description = "A library of mathematical functions"
 license = "CC0-1.0"
 
 [dependencies]

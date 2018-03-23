@@ -5,9 +5,11 @@ mod gamma;
 mod polynomials;
 mod ei;
 
-pub use gamma::*;
-pub use polynomials::*;
-pub use ei::*;
+pub mod sf{
+  pub use gamma::*;
+  pub use polynomials::*;
+  pub use ei::*;
+}
 
 pub mod pc;
 
