@@ -1,6 +1,7 @@
 
 use std::io::prelude::*;
 use std::fs::File;
+use std::f64::consts::PI;
 mod font;
 
 struct Buffer{
@@ -32,13 +33,11 @@ impl Color{
     pub fn rgb(r: u8, g: u8, b: u8) -> Self {
         Color{value: (r as u32)<<16 | (g as u32)<<8 | (b as u32)}
     }
+    pub fn hsl(h: f64, s: f64, l: f64) -> Self {
+        let (r,g,b) = hsl_to_rgb(h,s,l);
+        Color::rgb(r,g,b)
+    }
 }
-
-// const BLACK: Color = Color{value: 0x00000000};
-const GRAY:  Color = Color{value: 0x00808080};
-const WHITE: Color = Color{value: 0x00ffffff};
-const BLUE:  Color = Color{value: 0x00000080};
-const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
 
 pub mod color{
     use Color;
@@ -49,15 +48,19 @@ pub mod color{
     pub const MAGENTA: Color = Color{value: 0x00800060};
     pub const GREEN:   Color = Color{value: 0x00006000};
     pub const RED:     Color = Color{value: 0x00a00000};
-    pub const BROWN:   Color = Color{value: 0x00808000};
+    pub const BROWN:   Color = Color{value: 0x00705010};
+    pub const PURPLE:  Color = Color{value: 0x00600080};
+    pub const YELLOW:  Color = Color{value: 0x00dac000};
     pub const LIGHTGRAY: Color = Color{value: 0x00e4e4e0};
 }
 
-static COLOR_TAB: [Color;4] = [
+static COLOR_TAB: [Color;6] = [
   color::BLUE,
   color::GREEN,
   color::MAGENTA,
-  color::BLACK
+  color::YELLOW,
+  color::PURPLE,
+  color::BROWN,
 ];
 
 impl Canvas{
@@ -66,7 +69,7 @@ impl Canvas{
         let buffer = Buffer{width,height,data: data.into_boxed_slice()};
         return Canvas{buffer, px: (width/2) as isize, py: (height/2) as isize,
             mx: 40.0, my: 40.0, wx: 10.0, wy: 10.0, x: 0.0, y: 0.0, n: 1000,
-            color: BLUE, color_index: 0
+            color: color::BLUE, color_index: 0
         };
     }
     fn hline(&mut self, y: f64, color: Color) {
@@ -80,27 +83,39 @@ impl Canvas{
         self.fill(px,0,2,h,color);
     }
     pub fn system(&mut self) {
-        self.clear(WHITE);
-        self.color = GRAY;
+        self.clear(color::WHITE);
+        self.color = color::GRAY;
+        let wx = self.wx;
+        let wy = self.wy;
+        let xshift = self.x;
+        let yshift = self.y;
         for x in 1..10 {
-          self.vline(x as f64,LIGHTGRAY);
-          self.vprint(x as f64-0.1, -0.1, &format!("{}",x));
+            self.vline(x as f64,color::LIGHTGRAY);
+            if x%2==0 {
+                let text = &format!("{}",x as f64*wx/10.0+xshift);
+                self.vprint(x as f64-0.1, -0.1, text);
+            }
         }
         for x in -9..0 {
-          self.vline(x as f64,LIGHTGRAY);
-          self.vprint(x as f64-0.1, -0.1, &format!("{}",x));
+            self.vline(x as f64,color::LIGHTGRAY);
+            if x%2==0 {
+                let text = &format!("{}",x as f64*wx/10.0+xshift);
+                self.vprint(x as f64-0.4, -0.1, text);
+            }
         }
         for y in 1..10 {
-          self.hline(y as f64,LIGHTGRAY);
-          self.vprint(0.2, y as f64+0.2, &format!("{}",y));
+            self.hline(y as f64,color::LIGHTGRAY);
+            let text = &format!("{}",y as f64*wy/10.0+yshift);
+            self.vprint(0.2, y as f64+0.2, text);
         }
         for y in -9..0 {
-          self.hline(y as f64,LIGHTGRAY);
-          self.vprint(0.2, y as f64+0.2, &format!("{}",y));
+            self.hline(y as f64,color::LIGHTGRAY);
+            let text = &format!("{}",y as f64*wy/10.0+yshift);
+            self.vprint(0.2, y as f64+0.2, text);
         }
-        self.hline(0.0,GRAY);
-        self.vline(0.0,GRAY);
-        self.color = BLUE;
+        self.hline(0.0,color::GRAY);
+        self.vline(0.0,color::GRAY);
+        self.color = color::BLUE;
     }
     pub fn clear(&mut self, color: Color) {
         for x in self.buffer.data.iter_mut() {
@@ -145,11 +160,13 @@ impl Canvas{
     pub fn plot(&mut self, f: &Fn(f64)->f64) {
         let mut x = self.x-self.wx;
         let xe = self.x+self.wx;
-        let d = 10.0/(self.n as f64);
+        let d = self.wx/(self.n as f64);
+        let dx = self.mx*10.0/self.wx;
+        let dy = self.my*10.0/self.wy;
         while x<xe {
             let y = f(x);
-            let px = (self.px+(x*self.mx) as isize) as usize;
-            let py = (self.py.wrapping_sub((y*self.mx) as isize)) as usize;
+            let px = (self.px+((x-self.x)*dx) as isize) as usize;
+            let py = (self.py.wrapping_sub(((y-self.y)*dy) as isize)) as usize;
             // println!("({}|{})",px,py);
             let color = self.color;
             self.fill(px,py,2,2,color);
@@ -223,5 +240,25 @@ pub fn save(bv: &Vec<u8>, id: &str) {
             println!("Error: could not write into file '{}'.",id);        
         }
     }
+}
+
+#[allow(non_snake_case)]
+fn hsl_to_rgb(H: f64, S: f64, L: f64) -> (u8,u8,u8) {
+    let C = (1.0-(2.0*L-1.0).abs())*S;
+    let Hp = 3.0*H/PI;
+    let X = C*(1.0-(Hp%2.0-1.0).abs());
+    let (R1,G1,B1)
+    =    if 0.0<=Hp && Hp<1.0 {(C,X,0.0)}
+    else if 1.0<=Hp && Hp<2.0 {(X,C,0.0)}
+    else if 2.0<=Hp && Hp<3.0 {(0.0,C,X)}
+    else if 3.0<=Hp && Hp<4.0 {(0.0,X,C)}
+    else if 4.0<=Hp && Hp<5.0 {(X,0.0,C)}
+    else if 5.0<=Hp && Hp<6.0 {(C,0.0,X)}
+    else{(0.0,0.0,0.0)};
+    let m = L-C/2.0;
+    let R = 255.0*(R1+m);
+    let G = 255.0*(G1+m);
+    let B = 255.0*(B1+m);
+    return (R as u8,G as u8,B as u8);
 }
 

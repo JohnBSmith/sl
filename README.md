@@ -13,6 +13,7 @@
 
 * `mf` (mathematical functions)
   * `sf` (special functions)
+  * `nt` (number theory)
 
 See *[Implementation of special functions](https://johnbsmith.github.io/Mathematics/sf-implementation/sf-implementation.pdf)*.
 
