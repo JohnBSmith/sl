@@ -2,7 +2,7 @@
 use gamma::gamma;
 const SQRT_PI: f64 = 1.7724538509055159;
 
-fn legendre_rec(n: i32, m: i32,x: f64) -> f64{
+fn legendre_rec(n: i32, m: i32, x: f64) -> f64{
     if n==m {
         return SQRT_PI/gamma(0.5-n as f64)*(2.0*(1.0-x*x).sqrt()).powi(n);
     }else if n-1==m {
@@ -20,6 +20,7 @@ fn legendre_rec(n: i32, m: i32,x: f64) -> f64{
     }
 }
 
+/// Associated legendre function P[n,m](x).
 pub fn legendre(n: i32, m: i32, x: f64) -> f64 {
     let n = if n<0 {-n-1} else {n};
     if m.abs()>n {
@@ -31,3 +32,53 @@ pub fn legendre(n: i32, m: i32, x: f64) -> f64 {
     }
 }
 
+/// Hermite polynomial H[n](x).
+pub fn hermite(n: u32, x: f64) -> f64 {
+    if n==0 {
+        return 1.0;
+    }else if n==1 {
+        return 2.0*x;
+    }else{
+        let mut a = 1.0;
+        let mut b = 2.0*x;
+        for k in 1..n {
+            let h = 2.0*x*b-2.0*k as f64*a;
+            a = b; b = h;
+        }
+        return b;
+    }
+}
+
+/// Chebyshev polynomial of the first kind: T[n](x).
+pub fn chebyshev1(n: u32, x: f64) -> f64 {
+    if n==0 {
+        return 1.0;
+    }else if n==1 {
+        return x;
+    }else{
+        let mut a = 1.0;
+        let mut b = x;
+        for _ in 1..n {
+            let h = 2.0*x*b-a;
+            a = b; b = h;
+        }
+        return b;
+    }
+}
+
+/// Chebyshev polynomial of the second kind: U[n](x).
+pub fn chebyshev2(n: u32, x: f64) -> f64 {
+  if n==0 {
+      return 1.0;
+  }else if n==1 {
+      return 2.0*x;
+  }else{
+      let mut a = 1.0;
+      let mut b = 2.0*x;
+      for _ in 1..n {
+          let h = 2.0*x*b-a;
+          a = b; b = h;
+      }
+      return b;
+  }
+}

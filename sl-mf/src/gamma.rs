@@ -54,3 +54,43 @@ pub fn cgamma(z: c64) -> c64 {
     }
 }
 
+fn upper_gamma_cf(s: f64, z: f64, n: u32) -> f64 {
+  let mut x = 0.0;
+  let mut k = n;
+  while k != 0 {
+      let kf = k as f64;
+      x = kf*(s-kf)/(2.0*kf+1.0+z-s+x);
+      k-=1;
+  }
+  return (-z).exp()/(1.0+z-s+x);
+}
+
+fn lower_gamma_series(s: f64, z: f64, n: u32) -> f64 {
+  let mut y = 0.0;
+  let mut p = 1.0/s;
+  let mut k: u32 = 1;
+  while k<=n {
+      y+=p;
+      p = p*z/(s+k as f64);
+      k+=1;
+  }
+  return y*(-z).exp();
+}
+
+/// Upper incomplete gamma function.
+pub fn upper_gamma(s: f64, x: f64) -> f64{
+    if s+4.0<x {
+        return x.powf(s)*upper_gamma_cf(s,x,40);
+    }else{
+        return gamma(s)-x.powf(s)*lower_gamma_series(s,x,60);
+    }
+}
+
+/// Lower incomplete gamma function.
+pub fn lower_gamma(s: f64, x: f64) -> f64 {
+    if s+4.0<x {
+        return gamma(s)-x.powf(s)*upper_gamma_cf(s,x,40);
+    }else{
+        return x.powf(s)*lower_gamma_series(s,x,60);
+    }
+}
