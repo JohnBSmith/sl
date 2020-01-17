@@ -3,8 +3,8 @@ use interpolation::pli_eq;
 
 // m: number of backward steps
 // n: number of forward steps
-pub fn euler(g: Box<Fn(f64,f64)->f64>, x0: f64, y0: f64, h: f64, m: usize, n: usize)
-  -> Box<Fn(f64)->f64>
+pub fn euler(g: Box<dyn Fn(f64,f64)->f64>, x0: f64, y0: f64, h: f64, m: usize, n: usize)
+  -> Box<dyn Fn(f64)->f64>
 {
     let mut v: Vec<f64> = Vec::new();
     let mut x=x0;

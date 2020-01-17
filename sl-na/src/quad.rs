@@ -39,7 +39,7 @@ static GL32: [[f64;2];32] = [
   [ 0.9972638618494816, 0.007018610009470141]
 ];
 
-pub fn gauss(f: &Fn(f64)->f64, a: f64, b: f64, n: u32) -> f64 {
+pub fn gauss(f: &dyn Fn(f64)->f64, a: f64, b: f64, n: u32) -> f64 {
     let h = (b-a)/(n as f64);
     let p = 0.5*h;
     let mut s = 0.0;
@@ -54,7 +54,7 @@ pub fn gauss(f: &Fn(f64)->f64, a: f64, b: f64, n: u32) -> f64 {
     return s;
 }
 
-pub fn gauss_complex(f: &Fn(f64)->c64, a: f64, b: f64, n: u32) -> c64 {
+pub fn gauss_complex(f: &dyn Fn(f64)->c64, a: f64, b: f64, n: u32) -> c64 {
     let h = (b-a)/(n as f64);
     let p = 0.5*h;
     let mut s = Complex{re: 0.0, im: 0.0};

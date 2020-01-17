@@ -157,7 +157,7 @@ impl Canvas{
         let ppm = self.ppm();
         save(&ppm,id);
     }
-    pub fn plot(&mut self, f: &Fn(f64)->f64) {
+    pub fn plot(&mut self, f: &dyn Fn(f64)->f64) {
         let mut x = self.x-self.wx;
         let xe = self.x+self.wx;
         let d = self.wx/(self.n as f64);
